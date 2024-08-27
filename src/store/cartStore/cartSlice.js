@@ -15,12 +15,15 @@ export const cartSlice = createSlice({
     decreaseCart(state) {
       if (state.totalCart >= 1) state.totalCart -= 1;
     },
-    addToCart() {},
+    addToCart(state, { payload }) {
+      state.cart.push(payload);
+    },
     clearCart(state) {
       state.cart = [];
     },
   },
 });
 
-export const { addToCart, clearCart } = cartSlice.actions;
+export const { addToCart, clearCart, increaseCart, decreaseCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;

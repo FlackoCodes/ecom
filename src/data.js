@@ -4,7 +4,7 @@ export const data = [
     title: "Fall Limited Edition Sneakers",
     description:
       " These low-profile sneakers are your perfect casual wear companion. Featuring a durable rubber outer sole, they’ll withstand everything the weather can offer.",
-    price: 250,
-    discountedPrice: 125,
+    price: Number(250.0),
+    discountedPrice: Number(125.0),
   },
 ];

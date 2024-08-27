@@ -1,8 +1,16 @@
 import logo from "../images/logo.svg";
 import avatar from "../images/image-avatar.png";
 import cart from "../images/icon-cart.svg";
+import Cart from "./Cart";
+import { useState } from "react";
 
 export default function Nav() {
+  const [active, setActive] = useState(false);
+
+  const showCart = () => {
+    setActive(true);
+  };
+
   return (
     <div className=" w-[80%] my-0 mx-auto border-b">
       <nav className="flex items-center justify-between my-5">
@@ -17,10 +25,22 @@ export default function Nav() {
           </ul>
         </div>
         <div className="flex items-center gap-4">
-          <img className="cursor-pointer" src={cart} alt="shopping cart" />
-          <img className="w-6 h-6 border rounded-full active:border-orange-500 cursor-pointer" src={avatar} alt="avatar" />
+          <div>
+            <img
+              onClick={showCart}
+              className="cursor-pointer"
+              src={cart}
+              alt="shopping cart"
+            />
+          </div>
+          <img
+            className="w-6 h-6 border rounded-full active:border-orange-500 cursor-pointer"
+            src={avatar}
+            alt="avatar"
+          />
         </div>
       </nav>
+      <div>{active ? <Cart /> : null}</div>
     </div>
   );
 }

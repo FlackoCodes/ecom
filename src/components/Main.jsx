@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { data } from "../data";
-import pdtTOneThumb from ".images/image-product-1-thumbnail.jpg";
-import pdtOneImg from ".images/image-product-1.jpg";
-import pdtTwoThumb from ".images/image-product-2-thumbnail.jpg";
-import pdtTwoImg from ".images/image-product-2.jpg";
-import pdtThreeThumb from ".images/image-product-3-thumbnail.jpg";
-import pdtThreeImg from ".images/image-product-3.jpg";
-import pdtFourThumb from ".images/image-product-4-thumbnail.jpg";
-import pdtFourImg from ".images/image-product-4.jpg";
+import imageOneThumb from "../images/image-product-1-thumbnail.jpg";
+import imageOne from "../images/image-product-1.jpg";
+import imageTwoThumb from "../images/image-product-2-thumbnail.jpg";
+import imageTwo from "../images/image-product-2.jpg";
+import imageThreeThumb from "../images/image-product-3-thumbnail.jpg";
+import imageThree from "../images/image-product-3.jpg";
+import imageFourThumb from "../images/image-product-4-thumbnail.jpg";
+import imageFour from "../images/image-product-4.jpg";
+
+const item = data.map((data) => data);
+
 import iconCart from "../images/icon-cart.svg";
 import { FaMinus, FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,76 +24,120 @@ import {
 export default function Main() {
   const dispatch = useDispatch();
   const totalInCart = useSelector((state) => state.cart.totalCart);
-  const [currentThumbnail, setCurrentThumbnail] = useState(pdtTOneThumb);
+  const cart = useSelector((state) => state.cart.cart);
+  const [currentThumbnail, setCurrentThumbnail] = useState(imageOne);
 
   const setImageOne = () => {
-    setCurrentThumbnail(pdtTOneThumb);
+    setCurrentThumbnail(imageOne);
   };
   const setImageTwo = () => {
-    setCurrentThumbnail(pdtTwoThumb);
+    setCurrentThumbnail(imageTwo);
   };
   const setImageThree = () => {
-    setCurrentThumbnail(pdtThreeThumb);
+    setCurrentThumbnail(imageThree);
   };
   const setImageFour = () => {
-    setCurrentThumbnail(pdtFourThumb);
+    setCurrentThumbnail(imageFour);
   };
 
   const increasProducts = () => {
-    return dispatch(increaseCart);
+    return dispatch(increaseCart());
   };
 
   const decreasProducts = () => {
-    return dispatch(decreaseCart);
+    return dispatch(decreaseCart());
   };
 
+  const addItemsToCart = (product) => {
+    console.log(cart);
+    return dispatch(addToCart(product));
+  };
+
+  console.log("current cart :", cart);
+
   return (
-    <div className="w-[75%] my-0 mx-auto mt-4">
-      <div className="flex justify-between items-center">
-        <div className="flex flex-col">
-          <div>
-            <img src={currentThumbnail} alt="shoe thumbnail" />
-          </div>
-          <div className="flex flex-col">
-            <img onClick={setImageOne} src={pdtOneImg} alt="sneaker image" />
-            <img onClick={setImageTwo} src={pdtTwoImg} alt="sneaker image" />
+    <div className="w-[70%] my-0 mx-auto mt-4">
+      <div className="grid grid-cols-2 place-content-center">
+        <div className="flex flex-col" style={{ width: "300px" }}>
+          <div className="my-6">
             <img
-              onClick={setImageThree}
-              src={pdtThreeImg}
+              className="w-[300px] rounded-md"
+              src={currentThumbnail}
+              alt="shoe thumbnail"
+            />
+          </div>
+          <div className="flex gap-4 w-[300px]">
+            <img
+              className="w-[90px] h-16 rounded-md border-transparent active:border-2 active:border-orange-400 transition"
+              onClick={setImageOne}
+              src={imageOneThumb}
               alt="sneaker image"
             />
-            <img onClick={setImageFour} src={pdtFourImg} alt="sneaker image" />
+            <img
+              className="w-[90px] h-16 rounded-md"
+              onClick={setImageTwo}
+              src={imageTwoThumb}
+              alt="sneaker image"
+            />
+            <img
+              className="w-[90px] h-16 rounded-md"
+              onClick={setImageThree}
+              src={imageThreeThumb}
+              alt="sneaker image"
+            />
+            <img
+              className="w-[90px] h-16 rounded-md"
+              onClick={setImageFour}
+              src={imageFourThumb}
+              alt="sneaker image"
+            />
           </div>
         </div>
-        <div>
+
+        <div className="flex flex-col mt-10">
           {data.map((item, index) => (
             <div key={index}>
-              <h1>{item.company}</h1>
-              <p>{item.title}</p>
+              <h1 className="text-slate-500 font-medium uppercase tracking-wide mt-5">
+                {item.company}
+              </h1>
+              <p className="text-black tracking-wide  text-3xl font-extrabold my-4 w-[300px]">
+                {item.title}
+              </p>
               <div>
-                <p>{item.description}</p>
-                <div className="flex gap-2">
-                  <p>{item.discountedPrice}</p>
-                  <span className="bg-black text-white p-2 rounded-sm font-bold">
-                    50%
-                  </span>
+                <p className="my-2 text-gray-400">{item.description}</p>
+                <div className="flex gap-4 items-center">
+                  <h4 className="font-bold text-2xl text-black">
+                    ${item.discountedPrice}
+                  </h4>
+                  <div className="w-fit">
+                    <span className="bg-black text-white p-0.5 text-center text-xs font-bold rounded-sm">
+                      50%
+                    </span>
+                  </div>
                 </div>
                 <div>
-                  <del>{`$${item.price}`}</del>
+                  <del className="font-bold my-1 text-gray-400">{`$${item.price}`}</del>
                 </div>
               </div>
             </div>
           ))}
-          <div className="flex gap-4">
-            <div className="flex items-center justify-between bg-white rounded-sm">
+          <div className="flex gap-5 mt-4">
+            <div className="flex items-center gap-5 justify-between bg-gray-200 rounded-sm py-1 px-3">
               <FaMinus onClick={decreasProducts} className="text-orange-500" />
               <span>{totalInCart}</span>
               <FaPlus onClick={increasProducts} className="text-orange-500" />
             </div>
-            <div>
-              <button className="border-none bg-orange-600 rounded-sm flex items-center text-lg font-bold text-black">
-                <img src={iconCart} alt="shopping cart" />
-                add to cart
+            <div className="flex justify-center">
+              <button
+                onClick={() => addItemsToCart(item)}
+                className="border-none bg-orange-500 rounded-sm flex items-center text-base font-medium text-black py-2 px-8"
+              >
+                <img
+                  src={iconCart}
+                  className="w-4 text-black mr-2"
+                  alt="shopping cart"
+                />
+                Add to cart
               </button>
             </div>
           </div>
