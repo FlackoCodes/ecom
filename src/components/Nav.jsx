@@ -3,12 +3,17 @@ import avatar from "../images/image-avatar.png";
 import cart from "../images/icon-cart.svg";
 import Cart from "./Cart";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { setActive } from "../store/cartStore/cartSlice";
 
 export default function Nav() {
+  const dispatch = useDispatch();
+  const isActive = useSelector((state) => state.cart.active);
   const [active, setActive] = useState(false);
 
   const showCart = () => {
-    setActive(!active);
+    dispatch(setActive());
   };
 
   return (
@@ -34,7 +39,7 @@ export default function Nav() {
               alt="shopping cart"
             />
             {/* Cart dropdown */}
-            {active && (
+            {isActive && (
               <div className="absolute right-0 mt-2  bg-white border rounded-md">
                 <Cart />
               </div>
