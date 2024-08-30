@@ -10,7 +10,7 @@ import { setActive } from "../store/cartStore/cartSlice";
 export default function Nav() {
   const dispatch = useDispatch();
   const isActive = useSelector((state) => state.cart.active);
-  const [active, setActive] = useState(false);
+  // const [active, setActive] = useState(false);
 
   const showCart = () => {
     dispatch(setActive());

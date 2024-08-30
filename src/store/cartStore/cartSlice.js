@@ -21,6 +21,8 @@ export const cartSlice = createSlice({
     },
     clearCart(state) {
       state.cart = [];
+      state.active = false;
+      state.totalCart = 0;
     },
     setActive(state) {
       state.active = true;

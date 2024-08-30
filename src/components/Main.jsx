@@ -53,9 +53,8 @@ export default function Main() {
     return dispatch(addToCart(product));
   };
 
-  console.log("current cart :", cart);
-  console.log(totalInCart);
-  
+  const disableBtn = () => totalInCart === 0;
+
   return (
     <div className="w-[70%] my-0 mx-auto mt-4">
       <div className="grid grid-cols-2 place-content-center">
@@ -124,12 +123,19 @@ export default function Main() {
           ))}
           <div className="flex gap-5 mt-4">
             <div className="flex items-center gap-5 justify-between bg-gray-200 rounded-sm py-1 px-3">
-              <FaMinus onClick={decreasProducts} className="text-orange-500 cursor-pointer" />
+              <FaMinus
+                onClick={decreasProducts}
+                className="text-orange-500 cursor-pointer"
+              />
               <span>{totalInCart}</span>
-              <FaPlus onClick={increasProducts} className="text-orange-500 cursor-pointer" />
+              <FaPlus
+                onClick={increasProducts}
+                className="text-orange-500 cursor-pointer"
+              />
             </div>
             <div className="flex justify-center">
               <button
+                disabled={disableBtn()}
                 onClick={() => addItemsToCart(item)}
                 className="border-none bg-orange-500 rounded-sm flex items-center text-base font-medium text-black py-2 px-8"
               >
