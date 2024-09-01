@@ -2,7 +2,6 @@ import logo from "../images/logo.svg";
 import avatar from "../images/image-avatar.png";
 import cart from "../images/icon-cart.svg";
 import Cart from "./Cart";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { setActive } from "../store/cartStore/cartSlice";
@@ -10,7 +9,6 @@ import { setActive } from "../store/cartStore/cartSlice";
 export default function Nav() {
   const dispatch = useDispatch();
   const isActive = useSelector((state) => state.cart.active);
-  // const [active, setActive] = useState(false);
 
   const showCart = () => {
     dispatch(setActive());
@@ -30,7 +28,6 @@ export default function Nav() {
           </ul>
         </div>
         <div className="flex items-center gap-4">
-          {/* Relative positioning for the cart button and cart dropdown */}
           <div className="relative">
             <img
               onClick={showCart}
@@ -38,7 +35,6 @@ export default function Nav() {
               src={cart}
               alt="shopping cart"
             />
-            {/* Cart dropdown */}
             {isActive && (
               <div className="absolute right-0 mt-2  bg-white border rounded-md">
                 <Cart />
